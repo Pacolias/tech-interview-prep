@@ -1,0 +1,38 @@
+# 1768. Merge Strings Alternately
+
+- **Link:** [LeetCode - Merge Strings Alternately](https://leetcode.com/problems/merge-strings-alternately/)
+- **Difficulty:** Easy
+- **Algorithmic Pattern:** Two Pointers / String Manipulation
+
+## 💡 The "Aha! Moment" (Intuition)
+Instead of using complex logic with multiple loops to handle strings of different lengths, we can use a single pointer `i` and iterate as long as `i` is less than the length of *either* string. 
+Inside the loop, we simply check if `i` is still within the bounds of `word1` and `word2` before appending their respective characters. 
+*Crucial Java optimization:* We use a `StringBuilder` rather than standard string concatenation (`+`). This prevents the creation of multiple intermediate string objects in memory, ensuring that appending characters remains an $O(1)$ operation.
+
+## ⏱️ Complexity
+- **Time:** $O(m + n)$ -> We iterate at most $\max(m, n)$ times, where $m$ and $n$ are the lengths of `word1` and `word2`.
+- **Space:** $O(m + n)$ -> We use a `StringBuilder` to store the merged result, which takes memory proportional to the combined length of both strings. (Note: Output space is often excluded from auxiliary space analysis, making it $O(1)$ auxiliary space).
+
+## 💻 Code (Java)
+
+```java
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        int len1 = word1.length();
+        int len2 = word2.length();
+
+        while(i < len1 || i < len2){
+            if(i < len1)
+                sb.append(word1.charAt(i));
+
+            if(i < len2)
+                sb.append(word2.charAt(i));
+
+            i++;
+        }
+
+        return sb.toString();
+    }
+}
